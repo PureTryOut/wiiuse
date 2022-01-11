@@ -54,11 +54,26 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
+      - name: Setup msys2 and mingw-w64
+        uses: msys2/setup-msys2@v2
+        with:
+          install: >-
+            base-devel
+            gcc
+          pacboy: >-
+            cmake
+            ninja
+            headers
+            freeglut
+            SDL
       - name: Build (shared lib)
+        shell: msys2 {0}
         run: |
+          # D:/a/_temp/msys64/usr/x86_64-w64-mingw32/include/hidsdi.h
           cmake -B build -DBUILD_SHARED_LIBS=TRUE
           cmake --build build
       - name: Build (static lib)
+        shell: msys2 {0}
         run: |
           cmake -B build
           cmake --build build

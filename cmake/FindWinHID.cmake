@@ -211,6 +211,8 @@ else()
 			lib
 			lib/w32api)
 	endif()
+
+	message(STATUS ${MINGWSEARCH_TARGET_TRIPLE})
 	find_path(WINHID_INCLUDE_DIR
 		NAMES
 		hidsdi.h
@@ -219,8 +221,10 @@ else()
 		${MINGWSEARCH_INCLUDE_DIRS}
 		/mingw
 		PATH_SUFFIXES
+		x86_64-w64-mingw32/include
 		include/w32api/ddk
 		include/ddk
+		include
 		ddk)
 endif()
 
